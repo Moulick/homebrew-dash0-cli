@@ -36,9 +36,9 @@ cask "dash0" do
   fish_completion "completions/dash0.fish"
   zsh_completion "completions/dash0.zsh"
 
-  postflight do
-    if OS.mac?
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", staged_path]
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}"]
     end
   end
 
